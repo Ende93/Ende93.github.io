@@ -1,0 +1,23 @@
+body {
+  background: url(http://apod.nasa.gov/apod/image/1511/UnexpectedPlume_Blair_2112.jpg) no-repeat fixed top;
+  overflow: hidden;
+}
+
+.snake {
+  border: 1px solid black;
+  width: 20px;
+  height: 20px;
+  background: red;
+  position: relative;
+}
+
+.container {
+  background: #FFF;
+  height: 600px;
+  width: 600px;
+  border: 1px solid blue;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%) translateY(-50%);
+}
