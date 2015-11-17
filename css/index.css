@@ -11,7 +11,7 @@ body {
   position: relative;
 }
 
-.container {
+#box {
   background: #FFF;
   height: 600px;
   width: 600px;

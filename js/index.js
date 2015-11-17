@@ -6,10 +6,10 @@ window.onload = function() {
     timer,
     delay = 100,
     container = {
-      top: document.getElementsByClassName("container")[0].offsetTop + document.body.scrollTop,
-      left: document.getElementsByClassName("container")[0].offsetLeft,
-      bottom: document.getElementsByClassName("container")[0].offsetTop + document.body.scrollTop + 600,
-      right: document.getElementsByClassName("container")[0].offsetLeft + 600
+      top: document.getElementById("box")[0].offsetTop + document.body.scrollTop,
+      left: document.getElementById("box")[0].offsetLeft,
+      bottom: document.getElementById("box")[0].offsetTop + document.body.scrollTop + 600,
+      right: document.getElementById("box")[0].offsetLeft + 600
     };
 
   window.onkeydown = function(e) {
