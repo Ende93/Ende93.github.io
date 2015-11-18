@@ -21,7 +21,7 @@ window.onload = function init() {
 
   window.onkeydown = function(e) {
     var event = e || window.event;
-    console.log(delay);
+
     switch (event.keyCode) {
       case 32: //space
         break;
