@@ -1,4 +1,4 @@
-window.onload = function() {
+window.onload = function init() {
   var snake = [{
       'left': 0,
       'top': 0,
@@ -7,6 +7,8 @@ window.onload = function() {
     cubesize = 20,
     timer,
     delay = 200,
+    maxspeed = 50,
+    increasespeed = 1,
     randombox,
     box = document.getElementById("box"),
     lastkeydown,
@@ -19,48 +21,58 @@ window.onload = function() {
 
   window.onkeydown = function(e) {
     var event = e || window.event;
-
+    console.log(delay);
     switch (event.keyCode) {
       case 32: //space
         break;
       case 37: //left
-        if (lastkeydown !== 37) {
+        if (lastkeydown !== 37 && lastkeydown !== 39) {
           clearInterval(timer);
-          move('left', delay, -cubesize);
+          move('left', -cubesize);
         }
         break;
       case 38: //up
-        if (lastkeydown !== 38) {
+        if (lastkeydown !== 38 && lastkeydown !== 40) {
           clearInterval(timer);
-          move('top', delay, -cubesize);
+          move('top', -cubesize);
         }
         break;
       case 39: //right
-        if (lastkeydown !== 39) {
+        if (lastkeydown !== 39 && lastkeydown !== 37) {
           clearInterval(timer);
-          move('left', delay, cubesize);
+          move('left', cubesize);
         }
         break;
       case 40: //down
-        if (lastkeydown !== 40) {
+        if (lastkeydown !== 40 && lastkeydown !== 38) {
           clearInterval(timer);
-          move('top', delay, cubesize);
+          move('top', cubesize);
         }
         break;
       case 82: //r
         clearInterval(timer);
-        snake[0].div.style.left = 0;
-        snake[0].div.style.top = 0;
+
+        Array.prototype.slice.call(
+            document.getElementsByClassName("snake"))
+          .forEach(function(e, i) {
+            if (e.id !== "snakehead")
+              e.remove();
+          });
+
+        snake.splice(0, snake.length - 1);
+
         snake[0].left = 0;
         snake[0].top = 0;
-        //snake.splice(1);
+        snake[0].div.style.top = 0;
+        snake[0].div.style.left = 0;
+
         break;
     }
-    
+
     lastkeydown = event.keyCode;
   };
 
-  function move(direction, delay, size) {
+  function move(direction, size) {
     return timer = setInterval(function() {
       var head = snake.length - 1;
       if (document.getElementsByClassName("randombox").length === 0) {
@@ -77,20 +89,25 @@ window.onload = function() {
       if (snake[head].div.style.left == randombox.style.left && snake[head].div.style.top == randombox.style.top) {
         randombox.className = "snake";
         snake.unshift({
-          left: parseInt(randombox.style.left, 10),
-          top: parseInt(randombox.style.top, 10),
           div: randombox
         });
         head += 1;
+
+        if(delay > maxspeed)
+          delay -= increasespeed;
       }
       for (var i = 0; i < head; i++) {
-        snake[i].left = snake[i + 1].left;
-        snake[i].top = snake[i + 1].top;
         snake[i].div.style.left = snake[i + 1].div.style.left;
         snake[i].div.style.top = snake[i + 1].div.style.top;
       }
       snake[head][direction] += size;
       snake[head].div.style[direction] = snake[head][direction] + 'px';
+      for (i = 0; i < head; i++) {
+        if (head > 1 && snake[head].div.style.left === snake[i].div.style.left && snake[head].div.style.top === snake[i].div.style.top) {
+          clearInterval(timer);
+          return false;
+        }
+      }
 
     }, delay);
   }
