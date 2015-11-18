@@ -1,25 +1,38 @@
-img {
+.img {
   width: 100%;
   height: 100%;
-  position: absolute;
-  top : 0;
+  background-image: url(http://apod.nasa.gov/apod/image/1511/UnexpectedPlume_Blair_2112.jpg);
+  top: 0;
   left: 0;
+  position: absolute;
 }
+
 .snake {
-  border: 1px solid black;
   width: 20px;
   height: 20px;
   background: red;
-  position: relative;
+  position: fixed;
+}
+
+.randombox {
+  opacity: 0.8;
+  background: blue;
 }
 
 #box {
   background: #FFF;
   height: 600px;
   width: 600px;
-  border: 1px solid blue;
+  opacity: 0.9;
   position: absolute;
   transform: translateX(-50%) translateY(-50%);
-  left : 50%;
-  top : 50%;
+  left: 50%;
+  top: 50%;
+}
+
+footer {
+  color: white;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
