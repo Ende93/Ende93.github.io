@@ -28,25 +28,25 @@ window.onload = function init() {
       case 37: //left
         if (lastkeydown !== 37 && lastkeydown !== 39) {
           clearInterval(timer);
-          move('left', -cubesize);
+          move('left', -cubesize, event.keyCode);
         }
         break;
       case 38: //up
         if (lastkeydown !== 38 && lastkeydown !== 40) {
           clearInterval(timer);
-          move('top', -cubesize);
+          move('top', -cubesize, event.keyCode);
         }
         break;
       case 39: //right
         if (lastkeydown !== 39 && lastkeydown !== 37) {
           clearInterval(timer);
-          move('left', cubesize);
+          move('left', cubesize, event.keyCode);
         }
         break;
       case 40: //down
         if (lastkeydown !== 40 && lastkeydown !== 38) {
           clearInterval(timer);
-          move('top', cubesize);
+          move('top', cubesize, event.keyCode);
         }
         break;
       case 82: //r
@@ -68,11 +68,9 @@ window.onload = function init() {
 
         break;
     }
-
-    lastkeydown = event.keyCode;
   };
 
-  function move(direction, size) {
+  function move(direction, size, keyCode) {
     return timer = setInterval(function() {
       var head = snake.length - 1;
       if (document.getElementsByClassName("randombox").length === 0) {
@@ -83,6 +81,7 @@ window.onload = function init() {
         return false;
       } else if (size > 0 && snake[head][direction] + size > 580) {
         clearInterval(timer);
+
         return false;
       }
 
@@ -103,11 +102,15 @@ window.onload = function init() {
       snake[head][direction] += size;
       snake[head].div.style[direction] = snake[head][direction] + 'px';
       for (i = 0; i < head; i++) {
-        if (head > 1 && snake[head].div.style.left === snake[i].div.style.left && snake[head].div.style.top === snake[i].div.style.top) {
+        if (head > 1 && snake[head].div.style.left === snake[i].div.style.left 
+        	&& snake[head].div.style.top === snake[i].div.style.top) {
           clearInterval(timer);
+
           return false;
         }
       }
+      
+      lastkeydown = keyCode;
 
     }, delay);
   }
