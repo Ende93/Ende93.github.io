@@ -1,7 +1,7 @@
 .img {
   width: 100%;
   height: 100%;
-  background-image: url(http://ww4.sinaimg.cn/mw690/8fb9897dgw1ey563u5gg9j21kw0p945a.jpg);
+  background-image: url(http://ww1.sinaimg.cn/large/8fb9897dgw1ey6g0325plj21kw0p9h22.jpg);
   top: 0;
   left: 0;
   position: absolute;
@@ -19,6 +19,9 @@
   background: blue;
 }
 
+#snakehead {
+  background-color: gold;
+}
 #box {
   background: #FFF;
   height: 600px;
