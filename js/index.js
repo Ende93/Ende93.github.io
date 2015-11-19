@@ -75,7 +75,8 @@ window.onload = function init() {
       if (size < 0 && snake[head][direction] + size < 0) {
         clearInterval(timer);
         return false;
-      } else if (size > 0 && snake[head][direction] + size > 580) {
+      } 
+      if (size > 0 && snake[head][direction] + size > 580) {
         clearInterval(timer);
         return false;
       }
@@ -122,7 +123,7 @@ window.onload = function init() {
     randombox.className = "snake randombox";
 
     try {
-      while (len < 30 && outbody) {
+      while (len <= 300 && outbody) {
         style = randomStyle(size);
 
         outbody = snake.some(function(e) {
@@ -134,13 +135,13 @@ window.onload = function init() {
           }
         });
       }
-    } catch (e) {
+
+      randombox.style.left = style.left;
+      randombox.style.top  = style.top;
+
+	} catch (e) {
       console.log(e);
     }
-
-    randombox.style.left = style.left;
-    randombox.style.top  = style.top;
-
     parent.appendChild(randombox);
 
     function randomStyle(size) {
