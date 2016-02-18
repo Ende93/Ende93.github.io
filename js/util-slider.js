@@ -179,7 +179,7 @@ Slider.prototype = {
         self.body.appendChild(e);
 
       }
-      this.nav(current, arr[current]);
+      this.nav(0, arr[0]);
     }
 
     document.body.appendChild(this.container);
