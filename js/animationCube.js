@@ -1,4 +1,4 @@
-var animationCube = function() {
+var animationCube = (function() {
   var temp =
    '<div class="m-cube-box">'
      + '<div class="m-cube-item front">'
@@ -34,4 +34,4 @@ var animationCube = function() {
 		
 	}
   };
-}
+})();
