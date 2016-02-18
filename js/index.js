@@ -8,12 +8,12 @@ var slider = new Slider({
   sliders: [{
     tag: 'div',
     className: 'm-slider-item snake-box',
-    content: '贪吃蛇',
+    content: 'snake',
     fn: snake
   }, {
     tag: 'div',
     className: 'm-cube',
-    content: '方块',
+    content: 'cube',
     fn: animationCube
   }]
 });
