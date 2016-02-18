@@ -12,7 +12,7 @@ var slider = new Slider({
     fn: snake
   }, {
     tag: 'div',
-    className: 'm-cube',
+    className: 'm-slider-item m-cube',
     content: 'cube',
     fn: animationCube
   }]
