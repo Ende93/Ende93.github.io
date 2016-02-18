@@ -1,0 +1,122 @@
+.m-cube {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  margin: -100px;
+  perspective: 1000px;
+  cursor: default;
+}
+
+.m-cube .m-cube-box {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: roll 5s 12s linear infinite both;
+}
+
+.m-cube-item {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 2px solid rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0.8);
+  transition: 1s linear;
+  text-align: center;
+  line-height: 200px;
+  font-size: 50px;
+}
+
+.right {
+  animation: right 2s linear 0s alternate both;
+}
+
+.left {
+  animation: left 2s linear 2s alternate both;
+}
+
+.top {
+  animation: top 2s linear 4s alternate both;
+}
+
+.bottom {
+  animation: bottom 2s linear 6s alternate both;
+}
+
+.front {
+  animation: front 2s linear 10s alternate both;
+}
+
+.back {
+  animation: back 2s linear 8s alternate both;
+}
+
+.m-cube:hover .m-cube-box .top {
+  background: rgba(255, 255, 0, 0.8);
+}
+  
+.m-cube:hover .m-cube-box .bottom {
+  background: rgba(0, 255, 0, 0.8);
+}
+  
+.m-cube:hover .m-cube-box .left {
+  background: rgba(0, 255, 255, 0.8);
+}
+  
+.m-cube:hover .m-cube-box .right {
+  background: rgba(0, 0, 255, 0.8);
+}
+  
+.m-cube:hover .m-cube-box .front {
+  background: rgba(255, 0, 255, 0.8);
+}
+  
+.m-cube:hover .m-cube-box .back {
+  background: rgba(255, 0, 0, 0.8);
+}
+
+@keyframes right {
+  to {
+    transform: rotateY(90deg) translateZ(100px);
+  }
+}
+
+@keyframes left {
+  to {
+    transform: rotateY(-90deg) translateZ(100px);
+  }
+}
+
+@keyframes top {
+  to {
+    transform: rotateX(90deg) translateZ(100px);
+  }
+}
+
+@keyframes front {
+  to {
+    transform: translateZ(100px);
+  }
+}
+
+@keyframes bottom {
+  to {
+    transform: rotateX(-90deg) translateZ(100px);
+  }
+}
+
+@keyframes back {
+  to {
+    transform: rotateY(180deg) translateZ(100px);
+  }
+}
+
+@keyframes roll {
+  to {
+    transform: rotate3d(1, 1, 1, 360deg);
+  }
+}
