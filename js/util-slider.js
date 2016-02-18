@@ -106,7 +106,7 @@ Slider.prototype = {
   },
 
   nav: function(n, next) {
-    if (this.current.fn) {
+    if (this.current.fn && current !== next) {
       this.current.fn.stop();
       this.current.state = 'stop';
     }
@@ -179,6 +179,7 @@ Slider.prototype = {
         self.body.appendChild(e);
 
       }
+      this.nav(current, arr[current]);
     }
 
     document.body.appendChild(this.container);
