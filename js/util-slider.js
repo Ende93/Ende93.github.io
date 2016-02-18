@@ -106,7 +106,7 @@ Slider.prototype = {
   },
 
   nav: function(n, next) {
-    if (this.current.fn && current !== next) {
+    if (this.current.fn && this.current !== next) {
       this.current.fn.stop();
       this.current.state = 'stop';
     }
