@@ -20,9 +20,26 @@
 
 <body>
   <div class="img">
-    <div id="box">
-      <div class="snake" id="snakehead"></div>
-    </div>
+  <script src='js/util.js'></script>
+  <script src='js/util-slider.js'></script>
+  <script src='js/snake.js'></script>
+  <script>
+  var $ = function(selector) {
+    return [].slice.call(document.querySelectorAll(selector))
+  };
+
+  var slider = new Slider({
+    width: 540,
+    height: 400,
+    sliders: [{
+      tag: 'div',
+      className: 'm-slider-item snake-box',
+      content: '贪吃蛇',
+      fn: snake
+
+    }]
+  });
+  </script>
   </div>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="js/index.js"></script>
