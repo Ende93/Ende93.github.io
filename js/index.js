@@ -10,5 +10,10 @@ var slider = new Slider({
     className: 'm-slider-item snake-box',
     content: '贪吃蛇',
     fn: snake
+  }, {
+    tag: 'div',
+    className: 'm-cube',
+    content: '方块',
+    fn: animationCube
   }]
 });
