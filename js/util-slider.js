@@ -53,6 +53,13 @@ var utils = {
         case 'src':
           e.src = t;
           break;
+        case 'subNode':
+          var e2
+          for(var i in t) {
+            e2 = utils.createEle(t[i].tag, t[i]);
+            e.appendChild(e2);
+          }
+          break;
         default:
           break;
       }
@@ -121,7 +128,7 @@ Slider.prototype = {
     }
 
     this.X = n * -this.width;
-    this.body.style.transform = 'translateX(' + this.X + 'px) translateZ(0)'
+    this.body.style.transform = 'translateX(' + this.X + 'px) translateZ(0)';
 
     this.current = next || {};
     this.current.index = n;
@@ -142,14 +149,13 @@ Slider.prototype = {
 
     this.menu = this.container.getElementsByClassName('m-slider-left')[0];
 
-    this.current = 0;
-
     if(this.sliders && this.sliders.length > 0) {
       var self = this, 
         arr = self.sliders;
       var e, e2;
       for(var i in arr) {
         // create element
+        console.log(arr[i]);
         e = utils.createEle(arr[i].tag, arr[i], {
           height: self.height,
           width: self.width
@@ -162,15 +168,17 @@ Slider.prototype = {
         });
 
         // add click event
-        if(self.current !== undefined) {
-          (function(i) {
-            //console.log(11);
-            e2.addEventListener('click', function() {
-              // move 
-              self.nav(i, arr[i]);
-            });
-          })(i);
-        }
+        (function(i) {
+          //console.log(11);
+          e2.addEventListener('click', function(e) {
+            // move 
+            console.log(e.target.parentNode);
+            self.nav(i, arr[i]);
+
+            utils.delClass(e.target.parentNode.getElementsByClassName('current')[0], 'current'); 
+            utils.addClass(e.target, 'current');
+          });
+        })(i);
         
         arr[i].box = e;
         // add node
@@ -179,11 +187,19 @@ Slider.prototype = {
         self.body.appendChild(e);
 
       }
+      this.current = arr[0];
       this.nav(0, arr[0]);
+
+      utils.addClass(
+        this.container
+        .getElementsByClassName('m-slider-left')[0]
+        .children[0], 'current');
+
     }
-
-    document.body.appendChild(this.container);
+    if(this.parent)
+      this.parent.appendChild(this.container);
+    else 
+      document.body.appendChild(this.container);
   }
-
 
 }
