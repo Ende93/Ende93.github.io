@@ -32,7 +32,7 @@ var snake = (function() {
       }
       if(opt.boxSize)
         boxSize = opt.boxSize;
-      maxCubes = boxSize.width * boxSize.height / 20 / 20;
+      maxCubes = boxSize.width * boxSize.height / (cubesize * cubesize);
       node.style.backgroundColor = 'lightblue';
       
       var head = document.createElement('div');
