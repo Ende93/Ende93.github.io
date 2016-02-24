@@ -50,33 +50,39 @@ var snake = (function() {
         var event = e || window.event;
         console.log(event.keyCode);
         switch (event.keyCode) {
-          case 32: //space
+          // space, do nothing
+          case 32: 
             break;
-          case 37: //left
+          // left arrow, move left
+          case 37: 
             if (lastkeydown !== 39) {
               clearInterval(timer);
               self.move('left', -cubesize, event.keyCode);
             }
             break;
-          case 38: //up
+          // up arrow, move up
+          case 38:
             if (lastkeydown !== 40) {
               clearInterval(timer);
               self.move('top', -cubesize, event.keyCode);
             }
             break;
-          case 39: //right
+          // right arrow, move right
+          case 39:
             if (lastkeydown !== 37) {
               clearInterval(timer);
               self.move('left', cubesize, event.keyCode);
             }
             break;
-          case 40: //down
+          // down arrow, move down
+          case 40:
             if (lastkeydown !== 38) {
               clearInterval(timer);
               self.move('top', cubesize, event.keyCode);
             }
             break;
-          case 82: //r
+          // 'r', restart game
+          case 82:
             clearInterval(timer);
 
             // remove snake body in document
