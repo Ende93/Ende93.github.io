@@ -1,4 +1,4 @@
-In local debug, you can try chrome://net-internals/ -> HSTS -> add domain to trust the domain.
+For localhost debug, you can try chrome://net-internals/ -> HSTS -> add domain to trust the domain.
 
 
 ### see also
