@@ -1,2 +1,2 @@
-#personal blog
-use for example or test or article
+# Ende93's Blog
+just record and be better
