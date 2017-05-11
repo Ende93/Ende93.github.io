@@ -16,7 +16,7 @@
 2. gulp-cssimport
 
 ### 图片压缩
-gulp-tinypng-nokey，对于其他格式 GIF and SVG 可以使用 gulp-imagemin
+gulp-tinypng-nokey2，对于其他格式 GIF and SVG 可以使用 gulp-imagemin
 
 ### js 压缩
 gulp-uglify
