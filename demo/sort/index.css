@@ -1,7 +1,6 @@
 .bar {
     background: red;
     width: 40px;
-    margin-top: 40px;
 }
 
 .main {
@@ -10,5 +9,8 @@
     justify-content: space-around;
     position: relative;
     height: 700px;
-    transition: all .5s;
+}
+
+.main > div {
+    transition: all .6s;
 }

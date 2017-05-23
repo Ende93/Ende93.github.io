@@ -1,5 +1,5 @@
-function quickSort(move, arr, start = 0, end) {
-    end = end != null ? end : arr.length - 1;
+(function () {
+function quickSort(move, arr, start = 0, end = arr.length - 1) {
     if(start < end) {
         let index = partition(arr, start, end, move);
         
@@ -24,10 +24,11 @@ function partition(arr, low, high, fn) {
 }
 
 function swap(arr, a, b, fn) {
-    let t = arr[a];
-    arr[a] = arr[b];
-    arr[b] = t;
+    [arr[a], arr[b]] = [arr[b], arr[a]];
 
     if(typeof fn == 'function')
         fn(a, b);
 }
+
+window.quickSort = quickSort;
+}());

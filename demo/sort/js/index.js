@@ -23,13 +23,20 @@ $(function () {
     const MAX_HEIGHT = 500;
     const LEN = 10;
     const WIDTH = 40;
-    let arr = createArr(LEN, LEN * 2);
     let delay_time = 1000;
-    let stack = [];        
+    let stack = [];
+    let target = document.querySelectorAll('.js-sort');
 
-    console.log(arr);
-    createBarFormArr(arr, MAX_HEIGHT / 10 / 2, (document.body.clientWidth - WIDTH * LEN) / (LEN + 2));
-    quickSort(barMove, arr);
+    [].forEach.call(target, function (ele) {
+        ele.addEventListener('click', function () {
+            var type = this.dataset.type;
+            let arr = createArr(LEN, LEN * 2);
+            stack = [];
+            
+            createBarFormArr(arr, MAX_HEIGHT / 10 / 2, (document.body.clientWidth - WIDTH * LEN) / (LEN + 2));
+            type == 'quick' ? quickSort(barMove, arr) : mergeSort(barMove, arr);
+        })
+    })
 
     function createBarFormArr(arr, avg, margin) {
         let len = arr.length;
@@ -52,7 +59,6 @@ $(function () {
             setTimeout(function () {
                 let t = stack.shift();
                 delayMove(t[0], t[1]);
-                console.log('timeout: ' + Date.now());
             }, delay_time);
             delay_time += 300;
         }
@@ -62,9 +68,16 @@ $(function () {
         let list = $('.bar');
         let box = $('#content');
         let t = list[a];
+        if(a < 0 || b >= list.length) {
+            return;
+        }
 
-        box.replaceChild(list[b], list[a]);
-        box.insertBefore(t, list[b+1]);
+        box.insertBefore(list[b], list[a]);
+        if(b == list.length - 1) {
+            box.appendChild(t);
+        } else {
+            box.insertBefore(t, list[b+1]);
+        }
     }
 
     function createArr(len, max) {
