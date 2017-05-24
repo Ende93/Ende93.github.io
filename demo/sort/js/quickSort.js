@@ -5,8 +5,6 @@ function quickSort(move, arr, start = 0, end = arr.length - 1) {
         
         quickSort(move, arr, start, index - 1);
         quickSort(move, arr, index + 1, end);
-    } else {
-        console.log('arr: ' + arr);
     }
 }
 

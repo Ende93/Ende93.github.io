@@ -9,7 +9,7 @@
     if(start < end) {
       var mid = Math.floor((start + end) / 2);
 
-      mergeSort(move, arr, start, mid - 1);
+      mergeSort(move, arr, start, mid);
       mergeSort(move, arr, mid + 1, end);
       merge(move, arr, start, mid, end, temp);
     }
@@ -20,15 +20,23 @@
       k = 0;
 
     while(i <= mid && j <= end) {
-      move(start + k, arr[i] <= arr[j] ? i : j);
+      if(typeof move == 'function') {
+        move(start + k, arr[i] <= arr[j] ? i : j);
+      }
       temp[k++] = arr[i] <= arr[j] ? arr[i++] : arr[j++];
     }  
 
     while(i <= mid) {
+      if(typeof move == 'function') {
+        move(start + k, i);
+      }
       temp[k++] = arr[i++];
     }
 
     while(j <= end) {
+      if(typeof move == 'function') {
+        move(start + k, j);
+      }
       temp[k++] = arr[j++];
     }
 
