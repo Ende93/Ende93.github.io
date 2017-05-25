@@ -1,9 +1,9 @@
 "use strict";
 
 let $ = function (selector) {
-    if(typeof selector == 'function') {
+    if (typeof selector == 'function') {
         return $.ready(selector);
-    } else if(typeof selector == 'string') {
+    } else if (typeof selector == 'string') {
         return selector[0] == '#' ?
             document.getElementById(selector.replace('#', '')) :
             document.querySelectorAll(selector);
@@ -23,18 +23,22 @@ $(function () {
     const MAX_HEIGHT = 500;
     const LEN = 10;
     const WIDTH = 40;
-    let delay_time = 1000;
+    let delay_time = 0;
     let stack = [];
     let target = document.querySelectorAll('.js-sort');
+    let _mergeStack = [];
 
     [].forEach.call(target, function (ele) {
         ele.addEventListener('click', function () {
             var type = this.dataset.type;
             let arr = createArr(LEN, LEN * 2);
+
+            delay_time = 0;
             stack = [];
-            
+
             createBarFormArr(arr, MAX_HEIGHT / 10 / 2, (document.body.clientWidth - WIDTH * LEN) / (LEN + 2));
-            type == 'quick' ? quickSort(barMove, arr) : mergeSort(barMove, arr);
+            type == 'quick' ? quickSort(barMove, arr) : mergeSort(mergeMove, arr);
+
         })
     })
 
@@ -44,45 +48,80 @@ $(function () {
         let html = '';
         let box = $('#content');
 
-        while(i < len) {
+        while (i < len) {
             html += `<div class="bar" style="height: ${arr[i] * avg}px; width: ${WIDTH};"></div>`;
-                //left: ${(margin + WIDTH) * (i + 1)}px"></div>`;
+            //left: ${(margin + WIDTH) * (i + 1)}px"></div>`;
             i++;
         }
 
         box.innerHTML = html;
     }
 
-    function barMove(a, b) {
-        stack.push([a, b]);
-        if(stack.length) {
-            setTimeout(function () {
-                let t = stack.shift();
-                delayMove(t[0], t[1]);
-            }, delay_time);
+    var getList = (function () {
+        let list;
+
+        return function (refresh) {
+            if(refresh || !list) {
+                list = $('.bar');
+            }
+            return list;
+        }
+    }());
+
+    function mergeMove(a, b, mergeEnd) {
+        if (a == b && a != null) {
+            return;
+        }
+
+        delay(function () {
+            if (mergeEnd && a == b && a == null) {
+                getList(mergeEnd);
+                return;
+            }
+            // arr of mergeSort which during merge progress
+            let _list = getList();
+            // truth div list
+            let list = $('.bar');
+
+            list[a].insertAdjacentElement('beforebegin', _list[b])
+        });
+    }
+
+    function delay(fn) {
+        if(typeof fn == 'function') {
+            setTimeout(fn, delay_time);
             delay_time += 300;
         }
     }
 
-    function delayMove(a, b) {
-        let list = $('.bar');
+    function barMove(a, b) {
+        if (a == b) {
+            return;
+        }
+        delay(function() {
+            delayBarMove(a, b);
+        });
+    }
+
+    function delayBarMove(a, b) {
+        let list = [].slice.call($('.bar'));
         let box = $('#content');
         let t = list[a];
-        if(a < 0 || b >= list.length) {
+        if (a < 0 || b >= list.length) {
             return;
         }
 
-        box.insertBefore(list[b], list[a]);
-        if(b == list.length - 1) {
+        t.insertAdjacentElement('beforebegin', list[b]);
+        if (b == list.length - 1) {
             box.appendChild(t);
         } else {
-            box.insertBefore(t, list[b+1]);
+            list[b + 1].insertAdjacentElement('beforebegin', t);
         }
     }
 
     function createArr(len, max) {
         let ret = [];
-        for(let i = 0; i < len; i++) {
+        for (let i = 0; i < len; i++) {
             ret[i] = Math.floor(Math.random() * max) + 1;
         }
         return ret;

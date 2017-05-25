@@ -39,6 +39,7 @@
       }
       temp[k++] = arr[j++];
     }
+    move(null, null, true);
 
     for(i = 0; i < k; i++) {
       arr[start + i] = temp[i];
