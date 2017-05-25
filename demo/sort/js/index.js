@@ -21,26 +21,40 @@ $.ready = function (fn) {
 
 $(function () {
     const MAX_HEIGHT = 500;
-    const LEN = 10;
     const WIDTH = 40;
     let delay_time = 0;
+    let _len = 10;
     let stack = [];
     let target = document.querySelectorAll('.js-sort');
     let _mergeStack = [];
+    let _timer = [];
+    let STOP = false;
 
     [].forEach.call(target, function (ele) {
         ele.addEventListener('click', function () {
+            clear();
             var type = this.dataset.type;
-            let arr = createArr(LEN, LEN * 2);
+            let arr = createArr(_len, _len * 2.4);
 
-            delay_time = 0;
-            stack = [];
-
-            createBarFormArr(arr, MAX_HEIGHT / 10 / 2, (document.body.clientWidth - WIDTH * LEN) / (LEN + 2));
+            createBarFormArr(arr, MAX_HEIGHT / 10 / 2, (document.body.clientWidth - WIDTH * _len) / (_len + 2));
             type == 'quick' ? quickSort(barMove, arr) : mergeSort(mergeMove, arr);
 
         })
-    })
+    });
+
+    function clear() {
+        STOP = true;
+        $('#content').innerHTML = '';
+        _timer.forEach(function (timer) {
+            clearTimeout(timer);
+        });
+        delay_time = 0;
+        stack = [];
+
+        _timer = [];
+        getList();
+        STOP = false;
+    }
 
     function createBarFormArr(arr, avg, margin) {
         let len = arr.length;
@@ -49,7 +63,7 @@ $(function () {
         let box = $('#content');
 
         while (i < len) {
-            html += `<div class="bar" style="height: ${arr[i] * avg}px; width: ${WIDTH};"></div>`;
+            html += `<div class="bar" style="height: ${arr[i] * avg}px; width: ${WIDTH};"><p>${arr[i]}</p><i></i></div>`;
             //left: ${(margin + WIDTH) * (i + 1)}px"></div>`;
             i++;
         }
@@ -61,8 +75,11 @@ $(function () {
         let list;
 
         return function (refresh) {
-            if(refresh || !list) {
-                list = $('.bar');
+            if(refresh || !list || list.length == 0) {
+                list = [].slice.call($('.bar'));
+            }
+            if(isStop()) {
+                return null;
             }
             return list;
         }
@@ -80,8 +97,13 @@ $(function () {
             }
             // arr of mergeSort which during merge progress
             let _list = getList();
+
             // truth div list
-            let list = $('.bar');
+            let list = [].slice.call($('.bar'));
+
+            if(list.indexOf(_list[b]) === -1 || isStop()) {
+                return;
+            }
 
             list[a].insertAdjacentElement('beforebegin', _list[b])
         });
@@ -89,9 +111,18 @@ $(function () {
 
     function delay(fn) {
         if(typeof fn == 'function') {
-            setTimeout(fn, delay_time);
-            delay_time += 300;
+            _timer.push( setTimeout(function () {
+                if(isStop()) {
+                    return;
+                }
+                fn();
+            }, delay_time) );
+            delay_time += 100;
         }
+    }
+
+    function isStop() {
+        return STOP;
     }
 
     function barMove(a, b) {
