@@ -28,6 +28,7 @@ $(function () {
     let target = document.querySelectorAll('.js-sort');
     let _mergeStack = [];
     let _timer = [];
+    let $box = $('#content').childNodes[0];
     let STOP = false;
 
     [].forEach.call(target, function (ele) {
@@ -44,7 +45,9 @@ $(function () {
 
     function clear() {
         STOP = true;
-        $('#content').innerHTML = '';
+        $box.remove();
+        $('#content').innerHTML = '<div></div>';
+        $box = $('#content').childNodes[0];
         _timer.forEach(function (timer) {
             clearTimeout(timer);
         });
@@ -60,7 +63,6 @@ $(function () {
         let len = arr.length;
         let i = 0;
         let html = '';
-        let box = $('#content');
 
         while (i < len) {
             html += `<div class="bar" style="height: ${arr[i] * avg}px; width: ${WIDTH};"><p>${arr[i]}</p><i></i></div>`;
@@ -68,7 +70,7 @@ $(function () {
             i++;
         }
 
-        box.innerHTML = html;
+        $box.innerHTML = html;
     }
 
     var getList = (function () {
@@ -99,7 +101,7 @@ $(function () {
             let _list = getList();
 
             // truth div list
-            let list = [].slice.call($('.bar'));
+            let list = [].slice.call( $box.querySelectorAll('.bar') );
 
             if(list.indexOf(_list[b]) === -1 || isStop()) {
                 return;
@@ -136,7 +138,6 @@ $(function () {
 
     function delayBarMove(a, b) {
         let list = [].slice.call($('.bar'));
-        let box = $('#content');
         let t = list[a];
         if (a < 0 || b >= list.length) {
             return;
@@ -144,7 +145,7 @@ $(function () {
 
         t.insertAdjacentElement('beforebegin', list[b]);
         if (b == list.length - 1) {
-            box.appendChild(t);
+            $box.appendChild(t);
         } else {
             list[b + 1].insertAdjacentElement('beforebegin', t);
         }

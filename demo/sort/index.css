@@ -17,7 +17,9 @@
     transform: translateX(-50%);
 }
 
-.main {
+.main,
+.main > div {
+    width: 100%;
     display: flex;
     flex-wrap: wrap-reverse;
     justify-content: space-around;
@@ -25,6 +27,6 @@
     height: 700px;
 }
 
-.main > div {
+.main > .div {
     transition: all .6s;
 }
