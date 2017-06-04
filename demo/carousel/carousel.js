@@ -1,6 +1,7 @@
 (function () {
 
-  var _carousel = carousel(),
+  var _carousel,
+    _timer,
     _mouse = {},
     TIME = 4000;
 
@@ -10,7 +11,6 @@
   </section>
   `
   var _width = 0;
-  var _timer = setInterval(_carousel, TIME);
   var _$box = null,
     _$view = null,
     _$icon = null;
@@ -24,46 +24,37 @@
     var iconHTML = '', t = [];
 
     div.innerHTML = _html;
-
     ele.appendChild(div.children[0]);
     for(var i in srcs) {
-      t.push('<li><img src="' + srcs[i] + '"></li>');
+      t.push('<li class="ads-item"><img src="' + srcs[i] + '"></li>');
     }
     t.push( t[0] );
     t.unshift( t.slice(-2, -1) );
     ele.querySelector('.ads-container').innerHTML = t.join('');
 
-    _width = $items.eq(0).css('width').replace('px', '');
+    _width = ele.querySelector('li').getBoundingClientRect().width;
 
-    $box.css({
-      'width': (boxWidth = _width * (length + 2) + 'px'),
-      'left': prop + 'px'
-    });
+    ele = ele.querySelector('.ads-container');
+    ele.style.width = _width * t.length + 'px';
+    ele.style.left  = -_width + 'px';
+    ele.style.transition = 'all .6s ease-in-out';
 
-    setTimeout(function () {
-      $box.css('transition', 'all .6s ease-in-out');
-    });
-
-    for (var i = 0; i < length; i++) {
-      iconHTML += '<i class="ads-icon ' + (i == 0 ? 'current-icon' : '') + '"/>';
+    for (var i = 0; i < srcs.length; i++) {
+      iconHTML += '<li class="ads-icon ' + (i == 0 ? 'current-icon' : '') + '"></li>';
     }
 
-    $items.eq(0).clone().appendTo($items.parent());
-    $items.eq(0).before($items.eq(-1).clone());
-
-    _$icon = $box.parents('section').find('.ads-icon-container ul')
-      .html(iconHTML);
-
+    ele.parentNode.querySelector('.ads-icon-container').innerHTML = iconHTML
 
     return {
-      view: ele.querySelector('.ads-box'),
-      box: ele.querySelector('.ads-container'),
+      view: ele.parentNode,
+      box: ele,
       icon: ele.querySelector('.ads-icon-container')
     }
   }
 
   function init(ele, pics, time) {
-    var t = mount(ele)
+    var t = mount(ele, pics);
+
     _$view = t.view;
     _$box = t.box;
     _$icon = t.icon;
@@ -92,6 +83,8 @@
       _timer = setInterval(_carousel, TIME);
     });
 
+    _carousel = carousel();
+    _timer = setInterval(_carousel, TIME);
   }
 
   function carousel() {
@@ -105,8 +98,7 @@
     }
 
     var _index = 0,
-      $items = $box.find('.ads-item'),
-      boxWidth,
+      boxWidth;
       
     var iconHTML = '';
     var prop = -_width;
@@ -121,24 +113,21 @@
 
         setTimeout(function () {
           _index = 1;
-          $box.css({
-            transition: 'initial',
-            left: -_width * length + 'px'
-          });
-        }, 700)
+          _$box.style.transition = 'initial';
+          _$box.style.left = -_width * length + 'px';
+        }, 700);
       }
 
-      $box.css({
-        transition: 'all .6s ease-in-out',
-        'left': prop + 'px'
-      });
+      _$box.style.transition = 'all .6s ease-in-out',
+      _$box.style.left =  prop + 'px';
+      
 
       if (_index == length) {
         _index = 0;
         prop = -_width;
 
         setTimeout(function () {
-          $box.css({
+          _$box.css({
             transition: 'initial',
             left: prop + 'px'
           });

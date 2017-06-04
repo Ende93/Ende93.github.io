@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+
+<body>
+  <style>
+    .ads-box {
+      height: 600px;
+      width: 1024px;
+      position: relative;
+      display: block;
+      overflow: hidden;
+    }
+
+    .ads-container {
+      position: absolute;
+      left: 0;
+      top: 0;
+      transition: all .6s ease-in-out;
+      -webkit-transitiion: all .6s ease-in-out;
+    }
+
+    .ads-container .ads-item {
+      float: left;
+    }
+
+    .ads-container .ads-item img {
+      height: 600px;
+      width: 1024px;
+    }
+
+    .ads-icon-container {
+      font-size: 0;
+      text-align: center;
+      margin-top: .25rem;
+    }
+
+    .ads-icon {
+      width: .25rem;
+      height: .25rem;
+      border: 1px solid #d8d8d8;
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      border-radius: .25rem;
+    }
+
+    .ads-icon+.ads-icon {
+      margin-left: .25rem;
+    }
+
+    .ads-icon.current-icon {
+      background: #d8d8d8;
+      border: 0;
+    }
+    /* 广告轮播 end */
+  </style>
+  <script src="carousel.js"></script>
+  <script>
+    window.onload = function () {
+      carousel(document.getElementById('a'), [
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496598523668&di=c57c6727200ec464dbf56795782e0869&imgtype=0&src=http%3A%2F%2Fimg1.91.com%2Fuploads%2Fimagef1%2Fallimg%2F121026%2F23-121026155113.jpg',
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496598523666&di=c70a92d8daad7cf8a9aa4f86eb05475f&imgtype=0&src=http%3A%2F%2Fpic35.photophoto.cn%2F20150505%2F0005018316577265_b.jpg',
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496598523666&di=952a96d898bb5be63df3743ae578ca4a&imgtype=0&src=http%3A%2F%2Fimg2.91.com%2Fuploads%2Fimagef1%2Fallimg%2F121026%2F23-121026155106.jpg'
+      ])
+    }
+  </script>
+  <div id="a"></div>
+</body>
+
+</html>
