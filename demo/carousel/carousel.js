@@ -5,9 +5,9 @@
     _mouse = {},
     TIME = 4000;
 
-  var _html = `<section class="carsousel-box">
-    <ul class="carsousel-container"></ul>
-    <ul class="carsousel-icon-container"></ul>
+  var _html = `<section class="carousel-box">
+    <ul class="carousel-container"></ul>
+    <ul class="carousel-icon-container"></ul>
   </section>
   `
   var _width = 0;
@@ -26,29 +26,29 @@
     div.innerHTML = _html;
     ele.appendChild(div.children[0]);
     for(var i in srcs) {
-      t.push('<li class="carsousel-item"><img src="' + srcs[i] + '"></li>');
+      t.push('<li class="carousel-item"><img src="' + srcs[i] + '"></li>');
     }
     t.push( t[0] );
     t.unshift( t.slice(-2, -1) );
-    ele.querySelector('.carsousel-container').innerHTML = t.join('');
+    ele.querySelector('.carousel-container').innerHTML = t.join('');
 
     _width = ele.querySelector('li').getBoundingClientRect().width;
 
-    ele = ele.querySelector('.carsousel-container');
+    ele = ele.querySelector('.carousel-container');
     ele.style.width = _width * t.length + 'px';
     ele.style.left  = -_width + 'px';
     ele.style.transition = 'all .6s ease-in-out';
 
     for (var i = 0; i < srcs.length; i++) {
-      iconHTML += '<li class="carsousel-icon ' + (i == 0 ? 'current-icon' : '') + '"></li>';
+      iconHTML += '<li class="carousel-icon ' + (i == 0 ? 'current-icon' : '') + '"></li>';
     }
 
-    ele.parentNode.querySelector('.carsousel-icon-container').innerHTML = iconHTML
+    ele.parentNode.querySelector('.carousel-icon-container').innerHTML = iconHTML
 
     return {
       view: ele.parentNode,
       box: ele,
-      icon: ele.parentNode.querySelector('.carsousel-icon-container')
+      icon: ele.parentNode.querySelector('.carousel-icon-container')
     }
   }
 
@@ -132,7 +132,7 @@
 
       let t = _$icon.querySelector('.current-icon')
       t.className = t.className.replace('current-icon', '');
-      t = _$icon.querySelectorAll('.carsousel-icon')[_index];
+      t = _$icon.querySelectorAll('.carousel-icon')[_index];
       t.className = t.className + ' ' + 'current-icon';
     }
 
