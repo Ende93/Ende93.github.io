@@ -3,9 +3,13 @@
 
 <body>
   <style>
+    ul, li {
+      -webkit-padding-start: 0
+    }
     .ads-box {
-      height: 600px;
-      width: 1024px;
+      margin: 0 auto;
+      height: 500px;
+      width: 800px;
       position: relative;
       display: block;
       overflow: hidden;
@@ -24,31 +28,41 @@
     }
 
     .ads-container .ads-item img {
-      height: 600px;
-      width: 1024px;
+      height: 500px;
+      width: 800px;
     }
 
     .ads-icon-container {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 40px;
+      background: #000;
+      opacity: .7;
+      text-align: center;
       font-size: 0;
       text-align: center;
-      margin-top: .25rem;
     }
 
     .ads-icon {
-      width: .25rem;
-      height: .25rem;
-      border: 1px solid #d8d8d8;
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      border: 1px solid #fff;
       box-sizing: border-box;
       -webkit-box-sizing: border-box;
-      border-radius: .25rem;
+      border-radius: 25px;
     }
 
     .ads-icon+.ads-icon {
-      margin-left: .25rem;
+      margin-left: 25px;
     }
 
     .ads-icon.current-icon {
-      background: #d8d8d8;
+      background: #ddd;
       border: 0;
     }
     /* 广告轮播 end */
