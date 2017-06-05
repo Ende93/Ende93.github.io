@@ -48,13 +48,14 @@
     return {
       view: ele.parentNode,
       box: ele,
-      icon: ele.querySelector('.ads-icon-container')
+      icon: ele.parentNode.querySelector('.ads-icon-container')
     }
   }
 
   function init(ele, pics, time) {
     var t = mount(ele, pics);
 
+    _length = pics.length;
     _$view = t.view;
     _$box = t.box;
     _$icon = t.icon;
@@ -88,10 +89,7 @@
   }
 
   function carousel() {
-    var $iconBox,
-      length = _$box.querySelectorAll('.ads-item').length;
-
-    if (length == 0) {
+    if (_length == 0) {
       return function () {
         clearInterval(_timer);
       };
@@ -114,7 +112,7 @@
         setTimeout(function () {
           _index = 1;
           _$box.style.transition = 'initial';
-          _$box.style.left = -_width * length + 'px';
+          _$box.style.left = -_width * _length + 'px';
         }, 700);
       }
 
@@ -122,20 +120,20 @@
       _$box.style.left =  prop + 'px';
       
 
-      if (_index == length) {
+      if (_index == _length) {
         _index = 0;
         prop = -_width;
 
         setTimeout(function () {
-          _$box.css({
-            transition: 'initial',
-            left: prop + 'px'
-          });
+          _$box.style.transition = 'initial',
+          _$box.style.left =  prop + 'px';
         }, 700)
       }
 
-      $iconBox.find('.current-icon').removeClass('current-icon');
-      $iconBox.find('i').eq(_index).addClass('current-icon');
+      let t = _$icon.querySelector('.current-icon')
+      t.className = t.className.replace('current-icon', '');
+      t = _$icon.querySelectorAll('.ads-icon')[_index];
+      t.className = t.className + ' ' + 'current-icon';
     }
 
     return move;
