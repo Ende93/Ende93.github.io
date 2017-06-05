@@ -95,16 +95,6 @@ footer {
   vertical-align: middle;
 }
 
-.m-modal {
-  background-image: url(http://ww1.sinaimg.cn/large/8fb9897dgw1ey6g0325plj21kw0p9h22.jpg);
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  text-align: center;
-}
-
 #slider {
   display: inline-block;
   position: relative;
