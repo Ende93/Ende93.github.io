@@ -24,3 +24,13 @@ iscroll 5 的话使用 myScroll.on('scrollEnd') 即可
 当 iscroll 的容器有内容更新即内容高度变大的时候，需要调用 .refresh() 静态方法来更新，否则将不能滚动。
 ## 滚动与高度
 iscroll 将其分为两层，一是 wrapper,二是 scroller。scroller 是发生滚动的元素，即 transform 变化的，而 wrapper 是 scroller 的容器。需要注意的是 scroller 是 wrapper 的第一个子元素，如果你要滚动的元素不是的话，那么就会滚动不了了。还有一种情况也会不能滚动，即是 wrapper 和 scroller 高度一致的情况。这两点是需要注意的。
+## x 轴滚动
+```
+new IScroll(ele, {
+  // 仅 x 轴滚动
+  eventPassthrough: true,
+  // 设置 x 轴滚动
+  scrollX: true,
+  scrollY: false
+})
+```
