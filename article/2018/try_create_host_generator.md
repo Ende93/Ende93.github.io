@@ -28,6 +28,7 @@ nodejs index.js --url="http://www.eff.org"
 ## use puppeteer
 [puppeteer](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md)
 ## use chrome-remote-interface
+```
 const CDP = require('chrome-remote-interface');
 const argv = require('minimist')(process.argv.slice(2));
 const file = require('fs');
@@ -104,6 +105,7 @@ CDP(async function(client) {
 }).on('error', err => {
   console.error('Cannot connect to browser:', err);
 });
+```
 # echo to save
 echo "text" >> save.txt
 
