@@ -110,6 +110,7 @@ CDP(async function(client) {
 echo "text" >> save.txt
 
 # shadowsocks
+```shell
 cd /usr/local/
 
 wget –no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-all.sh
@@ -118,8 +119,9 @@ chmod +x shadowsocks-all.sh
 
 ./shadowsocks-all.sh 2>&1 | tee shadowsocks-all.log
 /etc/init.d/shadowsocks-python start | stop | restart | status
-## multi user
 ```
+## multi user
+```shell
 cd /etc/shadowsocks-python
 vi config.json
 # add port_password config
