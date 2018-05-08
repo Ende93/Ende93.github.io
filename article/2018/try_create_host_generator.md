@@ -1,4 +1,4 @@
-#linux connect tool ***********
+# linux connect tool
 Putty
 # Install Chrome
 ```
@@ -24,8 +24,10 @@ npm install chrome-remote-interface minimist
 # Take the screenshot
 nodejs index.js --url="http://www.eff.org"
 ```
-# Using headless Chrome as an automated screenshot tool .
-
+# Using headless Chrome.
+## use puppeteer
+[puppeteer](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md)
+## use chrome-remote-interface
 const CDP = require('chrome-remote-interface');
 const argv = require('minimist')(process.argv.slice(2));
 const file = require('fs');
@@ -114,6 +116,22 @@ chmod +x shadowsocks-all.sh
 
 ./shadowsocks-all.sh 2>&1 | tee shadowsocks-all.log
 /etc/init.d/shadowsocks-python start | stop | restart | status
+## multi user
+```
+cd /etc/shadowsocks-python
+vi config.json
+# add port_password config
+# 端口号，密码
+```
+```json
+{
+  "server": "0.0.0.0",
+  "port_password": {
+  	 "8381": "foobar1", 
+     "8384": "foobar4"
+	},
+}
+ ```
 
 # shadowsocks manager for windows
 https://github.com/shadowsocks/shadowsocks-windows/releases
