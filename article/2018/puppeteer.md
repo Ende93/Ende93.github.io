@@ -1,5 +1,5 @@
 # Puppeteer
-> `Puppeteer` 是一个 `Node` 库，其通过对 `DevTools` 协议的封装提供了诸多高级 API 来控制 `headless Chrome` 或 `Chromium`。它也可以修改配置来使用完整（non-headless）Chrome 或 Chromium。
+> [`Puppeteer`](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md) 是一个 `Node` 库，其通过对 [`DevTools`](https://chromedevtools.github.io/devtools-protocol/) 协议的封装提供了诸多高级 API 来控制 `headless Chrome` 或 `Chromium`。它也可以修改配置来使用完整（non-headless）Chrome 或 Chromium。
 ##### Puppeteer 能做什么
 
 你可以在浏览器中手动完成的大部分事情都可以使用 `Puppeteer` 完成！比如下面这些事情：
@@ -13,7 +13,7 @@
 线上跑一跑：https://try-puppeteer.appspot.com/
 
 ## 非同步性
-`[puppeteer](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md)` 是通过 `[DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/)` 来实现与 `Chromium` 的通信和操作的，因此并不会与浏览器的操作完全同步，且可能获取 `dom` 的时候已经好几个 `tick` 以后了。
+[`puppeteer`](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md) 是通过 [`DevTools Protocol`](https://chromedevtools.github.io/devtools-protocol/) 来实现与 `Chromium` 的通信和操作的，因此并不会与浏览器的操作完全同步，且可能获取 `dom` 的时候已经好几个 `tick` 以后了。
 比如：
 ```js
 const puppeteer = require('puppeteer');
