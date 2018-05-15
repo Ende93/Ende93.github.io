@@ -40,3 +40,35 @@ const puppeteer = require('puppeteer');
   await browser.close();
 })();
 ```
+## Page
+`Page` 是由 `broswer.newPage()` 创建出的用以控制浏览器页面的对象/实例。
+### Page.evaluate(pageFunction, ...args)
+此方法的传入的 `pageFunction` 是在浏览器 `context` 中执行的，需要用到 `Page.evaluate` 外相关参数的话需要用 `args` 传入：
+```js
+// jquery page
+const id = '#btn'
+const id2 = '...'
+Page.evaluate((id, id2) => {
+  $(id).doSomething();
+}, id, id2)
+```
+错误的例子：
+```js
+const id = '#btn'
+Page.evaluate(() => {
+  // throw id not defined
+  $(id).doSomething();
+})
+```
+参见 https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pageevaluatepagefunction-args
+
+## Puppeteer.launch(option)
+此方法会创建一个浏览器实例，默认的窗口大小是 `800x600`。`option` 使用见 https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#puppeteerlaunchoptions
+### 设置窗口大小
+```js
+puppeteer.launch({
+  headless: false,
+  // use args to set window size
+  args: ['--window-size=1920,1080']
+})
+```
