@@ -50,3 +50,26 @@
 4. 否则为零
 
 只考虑正常流程中的子元素（即忽略浮动框和绝对定位的框，并且相对定位的框被认为没有它们的偏移量）。注意，子框可能是一个[匿名块框](https://www.w3.org/TR/CSS2/visuren.html#anonymous-block-level)。
+
+## 10.6.4 绝对定位非替换元素
+在本节和下一节的内容中，术语 `static position`（静态位置）大致指的是元素在普通流中的位置。更确切地说，静态位置的 `top` 是从包含块的顶部边缘到某个盒子的顶部边缘的距离，该盒子的 `position` 值是 `static` 和其 `float` 是 `none`，其`float` 值是 `none`。（请注意，由于第9.7节中的规则，这可能还需要为 `display` 假设不同的计算值。）如果该框位于包含块之上，则该值为负值。
+
+但是用户代理实际上并不需要计算该框的尺寸，而是可以自由地去假定它的位置。
+
+为了计算静态位置，`fixed position`（固定定位）元素的包含块是初始包含块而不是视口。
+
+对于绝对定位的元素，`vertical dimensions`（垂直尺寸）的使用值必须满足以下约束条件：
+
+> `top` + `margin-top` + `border-top-width` + `padding-top` + `height` + `padding-bottom` + `border-bottom-width` + `margin-bottom` + `bottom` = 包含块的高度
+
+如果 `top`，`height` 和 `bottom` 三个均为 `auto`，则将 `top` 设置为静态位置，并应用下面编号三的规则。
+
+当三者都不是 `auto`：如果 `margin-top` 和 `margin-bottom` 都是 `auto`，则在额外约束条件下求解方程式，使得两个边距值相等。如果 `margin-top` 或 `margin-bottom` 之一是 `auto`，则解出该值的等式。如果这些值过度受限，则忽略 `bottom` 的值并求解。
+
+否则，请选择适用的以下六个规则之一：
+1. `top` 及 `height` 为 `auto` 且 `bottom` 值不是 `auto`，此时高度基于10.6.7节所述，将 `margin-top` 值设置为 `auto`，将 `margin-bottom` 设置为 0，然后求解 `top`。
+2. `top` 及 `bottom` 为 `auto` 且 `height` 值不是 `auto`，此时设置 `top` 为静态位置，将 `margin-top` 值设置为 `auto`，将 `margin-bottom` 设置为 0，然后求解 `bottom`。
+3. `height` 及 `bottom` 为 `auto` 且 `top` 值不是 `auto`，此时高度基于10.6.7节所述，将 `margin-top` 和 `margin-bottom` 设置为 0，然后求解 `bottom`。
+4. `top` 值为 `auto` 且 `height` 和 `bottom` 的值不是 `auto`，此时将 `margin-top` 值设置为 `auto`，将 `margin-bottom` 设置为 0, 然后求解 `top`。
+5. `height` 值为 `auto` 且 `top` 和 `bottom` 不是 `auto`，此时将 `margin-top` 设置为 `auto`，将 `margin-bottom` 设置为 0，然后求解 `height`。
+6. `bottom` 值为 `auto` 且 `top` 和 `height` 不是 `auto`，此时将 `margin-top` 设置为 `auto`，将 `margin-bottom` 设置为 0，然后求解 `bottom`。
