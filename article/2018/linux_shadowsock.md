@@ -120,13 +120,12 @@ chmod +x shadowsocks-all.sh
 ./shadowsocks-all.sh 2>&1 | tee shadowsocks-all.log
 /etc/init.d/shadowsocks-python start | stop | restart | status
 ```
-## multi user
+## shadowsocks config for multi user
 ```shell
 cd /etc/shadowsocks-python
 vi config.json
 # add port_password config
 # 端口号，密码
-```
 ```json
 {
   "server": "0.0.0.0",
@@ -136,6 +135,22 @@ vi config.json
 	},
 }
  ```
+### config fail(配置无效)
+> only origin port which singe user config use valid after change port 仅原有端口有效
 
+Because the firewall of the os block the port, You need to open it.See [detail](https://github.com/shadowsocks/shadowsocks-go/issues/135) or examples below.
+#### centos6
+```shell
+iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 8989 -j ACCEPT
+iptables -I INPUT -m state --state NEW -m udp -p udp --dport 8989 -j ACCEPT
+/etc/init.d/iptables save
+/etc/init.d/iptables restart
+```
+#### centos7
+```shell
+firewall-cmd --permanent --zone=public --add-port=8989/tcp
+firewall-cmd --permanent --zone=public --add-port=8989/udp
+firewall-cmd --reload
+``` 
 # shadowsocks manager for windows
 https://github.com/shadowsocks/shadowsocks-windows/releases
