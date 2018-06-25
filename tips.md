@@ -1,6 +1,8 @@
 ## [skip sourcetree register](https://www.cnblogs.com/lucio110/p/8192792.html)
 for windows `cd %LocalAppData%\Atlassian\SourceTree\`
+
 create accounts.json
+
 add content:
 ```json
 [
