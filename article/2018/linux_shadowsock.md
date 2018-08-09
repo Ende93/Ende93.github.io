@@ -139,6 +139,10 @@ vi config.json
 > only origin port which singe user config use valid after change port 仅原有端口有效
 
 Because the firewall of the os block the port, You need to open it.See [detail](https://github.com/shadowsocks/shadowsocks-go/issues/135) or examples below.
+### use putty through shadowsocks
+putty -> connection -> proxy -> Proxy type: SOCK 5 -> input your localhost ss port, 
+eg: Proxy hostname —— localhost, Port: 1080 -> Choose Print proxy diagnostics(optional) -> Open -> Done
+
 #### centos6
 ```shell
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 8989 -j ACCEPT
