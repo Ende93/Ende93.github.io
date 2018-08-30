@@ -34,11 +34,36 @@
     街道：<select id='street' style="width:100px" onchange='setCenter(this)'></select>
   </div>
   <script type="text/javascript">
+// function generateGeoJson(obj, maxcode, mincode) {
+//   let keys = Object.keys(obj);
+//   keys = keys.filter(t => t < maxcode && t > mincode)
+//   return keys.map(key => {
+//     return {
+//       properties: convertCenter(obj[key].district),
+//       type: 'Feature',
+//       "geometry": {
+//         "type": "Polygon",
+//         "coordinates": obj[key].bounds.map(t => {
+//           if (t[0].P) {
+//             return [t.lng, t.lat]
+//           } else {
+//             return t.map(a => [a.lng, a.lat])
+//           }
+//         })
+//       }
+//     }
+//   })
+// }
+// function convertCenter(obj) {
+//    Object.assign(obj, {
+// 	 center: [obj.center.lng, obj.center.lat]
+//   })
+// }
     var map, district, polygons = [], citycode;
     var citySelect = document.getElementById('city');
     var districtSelect = document.getElementById('district');
     var areaSelect = document.getElementById('street');
-
+    var _bounds = window._bounds = {}
     map = new AMap.Map('mapContainer', {
       resizeEnable: true,
       center: [116.30946, 39.937629],
@@ -60,6 +85,7 @@
       if (bounds) {
         data.districtList.forEach(district => {
           getBoundaryByName(district.adcode, name).then(bounds => {
+            _bounds[district.adcode] = {district, bounds}
             for (var i = 0, l = bounds.length; i < l; i++) {
               var polygon = new AMap.Polygon({
                 map: map,
