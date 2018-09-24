@@ -1,10 +1,6 @@
 import React from 'react';
-export default class ListWithScrollWrapper extends React.Component {
-  top = 0
-  isNeedScroll = true
-  start = 0
-  clientHeight = 0
-
+import List from './List'
+export default class ListWrapper extends React.Component {
   clearScroll() {
     window.cancelAnimationFrame(this.rafId)
   }
