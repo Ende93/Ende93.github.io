@@ -1,6 +1,4 @@
-/**
- * require('html2canvas')
- */
+import html2canvas from 'html2canvas'
  
 function downloadFile(fileName, content) {
   var eleA = document.createElement('a')
@@ -21,9 +19,14 @@ function downloadFile(fileName, content) {
     eleA.dispatchEvent(clickEvent)
   }
 }
-
+/**
+ * @params {HTMLElement} element
+ * @params {String} filename 
+ */
 function downloadScreenshot(element, filename) {
   html2canvas(element).then(canvas => {
     downloadFile(filename, canvas.toDataURL('image/png'))
   });
 }
+
+export default downloadScreenshot
