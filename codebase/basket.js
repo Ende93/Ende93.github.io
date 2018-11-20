@@ -39,10 +39,20 @@ const basket = {
       const data = JSON.parse(
         localStorage.getItem(getKey(key)) || 'false'
       );
-      return data === false ? data : data.content;
+      return data === false ? data : (typeof data === 'object' ? data.content : data);
     } catch (e) {
       console.error(e);
       return false;
+    }
+  },
+  getCacheOrSendRequestAndSaveCache(key, promise) {
+    if (this.get(key)) {
+      return this.get(key)
+    } else {
+      return promise.then(res => {
+        this.set(key, res)
+        return res
+      })
     }
   },
   /**
